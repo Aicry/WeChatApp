@@ -1,0 +1,18 @@
+{
+    "pages": [
+        "pages/login",
+        "pages/index/index",
+        "pages/list/index"
+    ],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "backgroundColor": "#f5f5f5",
+        "navigationStyle": "custom"
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "我们将获取你的位置"
+        }
+    },
+    "sitemapLocation": "sitemap.json"
+}
