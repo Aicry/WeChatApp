@@ -1,7 +1,7 @@
 //app.js
 import http from './utils/api.js'
 App({
-    onLaunch: function() {
+    /*onLaunch: function() {
         let userInfo = wx.getStorageSync('userInfo');
         if (!userInfo) {
             wx.login({
@@ -17,9 +17,10 @@ App({
                 }
             })
         }
-    },
+    },*/
     globalData:{
-       userId:'',
-       httpUrl:'http://192.168.1.111:8000'
+       globalUserId:'',
+       globalUserName:'',
+       httpUrl:'http://192.168.1.112:8000'
     },
 })

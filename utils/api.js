@@ -1,5 +1,5 @@
 // let baseUrl = `https://wxapp.geekreading.cn/api/`;
-let baseUrl = `http://192.168.0.103:3000/`;
+let baseUrl = `http://192.168.1.112:8000/`;
 
 function getHeader() {
     if (wx.getStorageSync('Token')) {
@@ -9,7 +9,9 @@ function getHeader() {
         }
     } else {
         return {
-            'content-type': 'application/json'
+            'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+
+          //  'content-type': 'application/json'
         }
     }
 }

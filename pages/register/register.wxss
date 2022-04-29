@@ -1,14 +1,19 @@
 page{ 
-  height: 100%; 
+  background: #f5f5f5;
 } 
+.container {
+  display: flex;
+  flex-direction: column;
+}
  
-.container { 
-  height: 100%; 
-  display: flex; 
-  flex-direction: column;   padding: 0; 
-  box-sizing: border-box; 
-  background-color: #f2f2f2
-}  
+.header_bg {
+  z-index: -1;
+  width: 100%;
+}
+
+.header {
+  position: absolute;
+}
  
 /*登录图片*/ 
 .login-icon{ 
@@ -27,19 +32,19 @@ page{
  
 .inputView { 
   background-color: #fff; 
-  line-height: 44px; 
+  line-height: 80px; 
 } 
 /*输入框*/ 
 .nameImage, .keyImage { 
   margin-left: 22px; 
-  width: 14px; 
-  height: 14px 
+  width: 20px; 
+  height: 20px 
 } 
  
 .loginLab { 
   margin: 15px 15px 15px 10px; 
   color: #545454; 
-  font-size: 14px 
+  font-size: 20px 
 } 
 .inputText { 
   flex: block; 
@@ -66,11 +71,11 @@ page{
   padding-bottom: 0px; 
 } 
  
-.loginBtn { 
+.registerBtn { 
   width: 80%; 
   margin-top: 35px; 
 } 
-.registerBtn{
+.returnBtn{
   width: 80%; 
   margin-top: 35px; 
 }
