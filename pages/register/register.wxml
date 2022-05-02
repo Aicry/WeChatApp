@@ -1,50 +1,58 @@
-
 <!--pages/login.wxml-->
 <view class="container">
-    <image class="header_bg" mode="widthFix" src="../../static/images/login.png"></image>
-    <view class="header" style="{{header_style}}">
-       
-    </view>
-    <!--账号-->
-    <view class="inputView"> 
-      <image class="nameImage"mode="" src="../../static/images/user.png"></image> 
-      <label class="loginLab">学号</label> 
-      <input class="inputText" placeholder="请输入6位学号" bindinput="idInput" bindblur="checkId"/> 
-    </view> 
-    <view class="line"></view> 
+  <image class="header_bg" mode="widthFix" src="../../static/images/login.png"></image>
+  <view class="header" style="{{header_style}}">
 
-      <!--姓名-->
-      <view class="inputView"> 
-      <image class="nameImage"mode="" src="../../static/images/user.png"></image> 
-      <label class="loginLab">姓名</label> 
-      <input class="inputText" placeholder="请输入姓名" bindinput="nameInput" bindblur="checkName" /> 
-    </view> 
-    <view class="line"></view> 
-    <!--密码-->
-    <view class="inputView"> 
-      <image class="keyImage" src="../../static/images/pwd.png"></image> 
-      <label class="loginLab">密码</label> 
-      <input class="inputText" password="true" placeholder="请输入6位以上密码" bindinput="passwordInput" bindblur="checkPassWd" /> 
-    </view> 
-   
-    <view class="inputView"> 
-      <image class="keyImage" src="../../static/images/pwd.png"></image> 
-      <label class="loginLab">密码</label> 
-      <input class="inputText" password="true" placeholder="请再次输入密码" bindinput="passwordReInput" bindblur="checkRePassWd"/> 
-    </view> 
+  </view>
+  <!--账号-->
+  <view class="inputView">
+    <image class="nameImage" mode="" src="../../static/images/user.png"></image>
+    <label class="loginLab">学号</label>
+    <input class="inputText" placeholder="请输入6位学号" bindinput="idInput" bindblur="checkId" />
+  </view>
+  <view class="line"></view>
 
-     <!--注册-->
-    <view class="registerBtnView"> 
-      <button class="registerBtn" type="primary" size="{{primarySize}}" 
-          loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button> 
-    </view> 
-    <view class="returnBtnView"> 
-      <button class="returnBtn" type="primary" size="{{primarySize}}" 
-          loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="returnTo">返回</button> 
-    </view> 
-    <view class="footer">
-        <button open-type="share">分享好友</button> |
-        <button open-type="contact">联系客服</button> |
-        <button bindtap="creatGroup">创建小组</button>
-    </view>
+  <!--姓名-->
+  <view class="inputView">
+    <image class="nameImage" mode="" src="../../static/images/user.png"></image>
+    <label class="loginLab">姓名</label>
+    <input class="inputText" placeholder="请输入姓名" bindinput="nameInput" bindblur="checkName" />
+  </view>
+  <view class="line"></view>
+  <!--密码-->
+  <view class="inputView">
+    <image class="keyImage" src="../../static/images/pwd.png"></image>
+    <label class="loginLab">密码</label>
+    <input class="inputText" password="true" placeholder="请输入6位以上密码" bindinput="passwordInput" bindblur="checkPassWd" />
+  </view>
+
+  <view class="inputView">
+    <image class="keyImage" src="../../static/images/pwd.png"></image>
+    <label class="loginLab">密码</label>
+    <input class="inputText" password="true" placeholder="请再次输入密码" bindinput="passwordReInput" bindblur="checkRePassWd" />
+  </view>
+  <view class="section">
+
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <view class="picker">
+       学院：{{multiArray[0][multiIndex[0]]}}     | 专业： {{multiArray[1][multiIndex[1]]}}     | 班级：{{multiArray[2][multiIndex[2]]}}
+      </view>
+    </picker>
+
+  </view>
+
+
+
+  <!--注册-->
+  <view class="registerBtnView">
+    <button class="registerBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button>
+  </view>
+  <view class="returnBtnView">
+    <button class="returnBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="returnTo">返回</button>
+  </view>
+  <view class="footer">
+    <button open-type="share">分享好友</button> |
+    <button open-type="contact">联系客服</button> |
+    <button bindtap="creatGroup">创建小组</button>
+  </view>
 </view>

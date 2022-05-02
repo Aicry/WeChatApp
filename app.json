@@ -1,9 +1,14 @@
 {
     "pages": [
         "pages/login/login",
-        "pages/index/index",
-        "pages/list/index",
-        "pages/register/register"
+        "pages/ChangeMsg/ChangeMsg",
+        
+        "pages/StudentPersonal/StudentPersonal", 
+        "pages/Student/Student",
+        "pages/register/register",
+        "pages/Admin/Admin",
+        "pages/SuperAdmin/SuperAdmin"
+        
     ],
     "window": {
         "navigationBarTextStyle": "black",

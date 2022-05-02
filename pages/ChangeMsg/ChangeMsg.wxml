@@ -1,0 +1,49 @@
+
+<view class="container">
+    <!-- 第一部分 -->
+    <image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+  <view class="header" style="{{header_style}}">
+  </view>
+
+
+
+  <view class="view_1">
+    <view class="view_image_text">
+      <text>{{Type}}：{{name}}</text>
+      <text>学号：{{Id}}</text>
+    </view>
+  </view>
+    <!--账号-->
+    <view class="inputView"> 
+      <image class="nameImage"mode="" src="../../static/images/pwd.png"></image> 
+      <label class="loginLab">密码</label> 
+      <input class="inputText" pwd="true" placeholder="请输入密码" bindinput="pwdInput" /> 
+    </view> 
+    <view class="line"></view> 
+    <!--密码-->
+    <view class="inputView"> 
+      <image class="keyImage" src="../../static/images/pwd.png"></image> 
+      <label class="loginLab">密码</label> 
+      <input class="inputText" pwd="true" placeholder="请再次输入密码" bindinput="repwdInput" /> 
+    </view> 
+
+    <view class="section">
+            <radio-group class="type_group" name="Type" bindchange="TypeChange">
+                <radio color="#3B82C5" wx:for-items="{{TypeList}}" wx:key="index" value="{{item}}">
+                    <text>{{item}}</text>     
+                </radio>
+            </radio-group>
+    </view>
+    <!--按钮-->
+    <view class="changeBtnView"> 
+      <button class="changeBtn" type="primary" size="{{primarySize}}" 
+          loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="commit">提交</button> 
+    </view>
+     <!--注册-->
+    <view class="returnBtnView"> 
+      <button class="returnBtn" type="primary" size="{{primarySize}}" 
+          loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="return">返回</button> 
+    </view> 
+
+  
+</view>

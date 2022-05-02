@@ -143,6 +143,45 @@ color: #7e8da6;
 font-weight: 400;
 }
 
+
+.section {
+  margin: 16rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
+}
+
+.section input, .picker {
+  height: 60rpx;
+  font-size: 32rpx;
+  line-height: 1.5;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.no_picker {
+  color: #808080;
+}
+
+.piecker_tag {
+  text-align: right;
+  flex-basis: 100rpx;
+  color: #3b82c5;
+}
+
+.section__title {
+  font-size: 36rpx;
+  line-height: 2;
+}
+
+.section__title text {
+  color: #ea5849;
+}
+
+
 .footer {
   margin: 40rpx auto 60rpx;
   display: flex;

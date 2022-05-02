@@ -143,6 +143,14 @@ color: #7e8da6;
 font-weight: 400;
 }
 
+.type_group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
 .footer {
   margin: 40rpx auto 60rpx;
   display: flex;

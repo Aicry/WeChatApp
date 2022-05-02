@@ -1,5 +1,5 @@
 import http from '../../utils/api.js';
-import util from '../../utils/util.js'
+import util, { formatTime } from '../../utils/util.js'
 let QQMapWX = require('../../libs/qqmap-wx-jssdk')
 let qqmapsdk;
 var app = getApp();
@@ -9,25 +9,29 @@ Page({
     * 页面的初始数据
     */
   data: {
-    userName: '',
-    userId: '',
+    submitResult: '',
+    name: '',
+    Id: '',
     temperature: '',
     inSchool: '',
     inCity: '',
-    health: '',
-    personStatus: '',
-    ralative: '',
-    describeMsg: '',
+    healthy: '',
+    personType: '',
+    relative: '',
+    note: '',
     latitude: '',
     longitude: '',
-    total: 0,
+    submitdays: '',
     address: '',
     disabled: true,
     Status: ["是", "否"],
     healthyStatus: ["正常", "异常"],
     temList: ["低于36℃", "36~37.3℃", "37.3~38℃", "38℃以上"],
-    statusList: ["否", "确诊患者", "疑似患者", "可能感染的发热患者", "密切接触者"],
-
+    personTypeList: ["否", "确诊患者", "疑似患者", "可能感染的发热患者", "密切接触者"],
+    college:'',
+    major:'',
+    stuClass:'',
+    Type:''
   },
 
 
@@ -40,13 +44,18 @@ Page({
     eventChannel.on('acceptDataFromOpenerPage', (data) => {
       console.log(data);
       this.setData({
-        userName: data.data.userName,
-        userId: data.data.id
+        name: data.data.name,
+        Id: data.data.Id,
+        college:data.data.college,
+        major:data.data.major,
+        stuClass:data.data.stuClass,
+        submitdays:data.data.submitdays,
+        Type:data.data.Type
       })
 
     })
+    console.log()
 
-    this.getUserLocation();
 
   },
 
@@ -158,7 +167,12 @@ Page({
     })
   },
 
-
+  addressChange(e) {
+    this.getUserLocation();
+    this.setData({
+      address: e.detail.value
+    })
+  },
   temChange(e) {
     this.setData({
       temperature: this.data.temList[Number(e.detail.value)]
@@ -178,22 +192,22 @@ Page({
   },
   healthyChange(e) {
     this.setData({
-      health: e.detail.value
+      healthy: e.detail.value
     })
   },
-  personStatusChange(e) {
+  personTypeChange(e) {
     this.setData({
-      personStatus: e.detail.value
+      personType: e.detail.value
     })
   },
-  ralativeChange(e) {
+  relativeChange(e) {
     this.setData({
-      ralative: e.detail.value
+      relative: e.detail.value
     })
   },
-  describeMsgChange(e) {
+  noteChange(e) {
     this.setData({
-      describeMsg: e.detail.value
+      note: e.detail.value
     })
 
   },
@@ -206,7 +220,98 @@ Page({
   },
 
   formSubmit: function (e) {
-    let {
+    console.log(e.detail.value)
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var nowDate = year + "-" + month + "-" + day;
+    console.log(nowDate);
+    const submintMsg = {
+      "Id": this.data.Id,
+      "address": this.data.address,
+      "inSchool": this.data.inSchool,
+      "inCity": this.data.inCity,
+      "temperature": this.data.temperature,
+      "healthy": this.data.healthy,
+      "personType": this.data.personType,
+      "relative": this.data.relative,
+      "note": this.data.note,
+      "date": nowDate
+    }
+    var array = JSON.stringify(submintMsg);
+    const promise = http.post('Submit', array);
+    promise.then(res => {
+      console.log(res.data);
+      this.setData({
+        submitResult: res.data
+      })
+      if (this.data.name != '') {
+        console.log("success");
+      }
+
+      else {
+        console.log("fail");
+      }
+    })
+
+
+
+
+  },
+
+  creatGroup() {
+    wx.showToast({
+      title: '正在开发中',
+      icon: 'none'
+    })
+  },
+
+  toDetails() {
+    wx.navigateTo({
+      url:`/pages/StudentPersonal/StudentPersonal`,
+     
+      success: (res) => {
+          
+        console.log('test');
+        // 通过eventChannel向被打开页面传送数据
+        const StudentMsg = {
+          "Id": this.data.Id,
+          "name": this.data.name,
+          "college": this.data.college,
+          "major": this.data.major,
+          "stuClass": this.data.stuClass,
+          "Type": this.data.Type
+        }
+        var array = JSON.stringify(StudentMsg);
+        res.eventChannel.emit('acceptDataFromOpenerPage',
+            {data: array})
+    }
+
+  })
+    
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: '健康打卡',
+      path: `/pages/index/index`,
+      imageUrl: '../../images/index.png'
+    }
+  }
+})
+
+
+/**
+ *
+
+ let {
       address,
       inSchool,
       inCity,
@@ -217,7 +322,7 @@ Page({
     } = e.detail.value;
     const verify = [
       {
-        value: address.length==0,
+        value: address,
         text: "定位出错"
       },
 
@@ -229,7 +334,7 @@ Page({
       {
         value: inCity,
         text: "请选择是否离开学校所在城市"
-      }, 
+      },
 
       {
         value: temperature,
@@ -244,7 +349,7 @@ Page({
       {
         value: personStatus,
         text: "请选择是否被确认为四类人员"
-      }, 
+      },
 
       {
         value: ralative,
@@ -261,64 +366,4 @@ Page({
     } else {
          console.log("提交测试")
     }
-  },
-
-  creatGroup() {
-    wx.showToast({
-      title: '正在开发中',
-      icon: 'none'
-    })
-  },
-
-  toDetails() {
-    wx.navigateTo({
-      url: `/pages/list/index`
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    return {
-      title: '健康打卡',
-      path: `/pages/index/index`,
-      imageUrl: '../../images/index.png'
-    }
-  }
-})
+ */

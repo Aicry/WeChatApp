@@ -1,4 +1,4 @@
-// pages/login.js
+
 import http from '../../utils/api.js';
 
 Page({
@@ -7,14 +7,25 @@ Page({
      * 页面的初始数据
      */
     data: {
-        id: '', 
-        password:'' ,
-        userName:''
+        Id: '', 
+        pwd:'' ,
+        name:'',
+        submitdays:'',
+        college:'',
+        major:'',
+        stuClass:'',
+        Type:'',
+        TypeList:["学生", "管理员","超级管理员"],
     },
 
+    onLoad: function () {
+      var date = new Date();
+     date=date.toString();
+     console.log(date);
+    },
     idInput :function (e) { 
         this.setData({ 
-          id:e.detail.value ,
+          Id:e.detail.value ,
         }) 
          
         
@@ -23,14 +34,19 @@ Page({
     // 获取输入密码 
       passwordInput :function (e) { 
         this.setData({ 
-          password:e.detail.value 
+          pwd:e.detail.value 
         })   }, 
 
     
+        TypeChange:function(e){
+          this.setData({ 
+            Type:e.detail.value 
+          })
+        },
     // 登录 
       login: function () { 
 
-        if(this.data.id.length == 0 || this.data.password.length == 0){ 
+        if(this.data.Id.length == 0 || this.data.pwd.length == 0||this.data.Type.length==0){ 
           wx.showToast({   
             title: '请输入用户信息',   
             icon: 'error',   
@@ -38,33 +54,40 @@ Page({
           })   
           
     }else { 
+      console.log("test1");
         const loginMes={
-          "userId" : this.data.id,
-          "pwd" : this.data.password
+          "Id" : this.data.Id,
+          "pwd" : this.data.pwd
         }
         var array = JSON.stringify(loginMes);
-        const promise= http.post('login',array);
-        
+
+
+        var loginType = "";
+        var url=``;
+        if(this.data.Type=="学生"){loginType='StudentLogin';url=`/pages/Student/Student`}
+        if(this.data.Type=="管理员"){loginType='AdminLogin';url=`/pages/Admin/Admin`}
+        if(this.data.Type=="超级管理员"){loginType='SuperAdminLogin';url=`/pages/SuperAdmin/SuperAdmin`}
+        const promise= http.post(loginType,array);     
         promise.then(res => {
         console.log(res.data);
         this.setData({
-            userName:res.data
+            name:res.data.name,
+            submitdays:res.data.submitdays,
+            college:res.data.college,
+            major:res.data.major,
+            stuClass:res.data.stuClass,
+            Type:this.data.Type
         })
-        console.log('test')
-        console.log(this.data.userName);
-        console.log('test')
-
-        if(this.data.userName!='fail'){
+        if(this.data.name!='fail'){
           wx.navigateTo({
-            url: `/pages/index/index`,
-           
+            url: url,  
             success: (res) => {
               res.eventChannel.emit('acceptDataFromOpenerPage',
                   {data: this.data})
           }
-    
         })
         }
+
         else {
           wx.showToast({
             title: '账号或密码错误',
@@ -88,7 +111,7 @@ Page({
           console.log('test');
           // 通过eventChannel向被打开页面传送数据
           res.eventChannel.emit('acceptDataFromOpenerPage',
-              {data: this.data.userName})
+              {data: this.data.name})
       }
 
     })

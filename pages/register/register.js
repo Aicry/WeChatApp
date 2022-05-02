@@ -1,27 +1,111 @@
 import http from '../../utils/api.js';
+var app = getApp();
 Page({
 
   /**
-   * 页面的初始数据
+   * 页面的初始数据Id
    */
   data: {
-    id: '',
-    password: '',
-    repassword: '',
-    userName: '',
-    status: ''
+    Id: '',
+    pwd: '',
+    repwd: '',
+    name: '',
+    college:'',
+    major:'',
+    stuClass:'',
+    collegeList:'',
+    majorList:'',
+    stuClassList:'',
+    submitdays:'0',
+    status: '',
+    multiArray: [[], [], []],
+    multiIndex: [0, 0, 0]
+    
   },
+onLoad:function(options) {
+  this.getclasslist();
+},
+getclasslist:function(){
+  let that=this
+  that.setData({
+    collegeList: app.globalData.collegeList,
+    majorList: app.globalData.majorList,
+    stuClassList:app.globalData.stuClassList
+  })
+  
+  that.data.multiArray[0] = that.data.collegeList
+  that.data.multiArray[1] = this.getArr(that.data.collegeList[0], that.data.majorList);
+  that.data.multiArray[2] = this.getArr(that.data.multiArray[1][0], that.data.stuClassList);
+  that.setData({
+    multiArray: that.data.multiArray
+  })
+},
+bindMultiPickerColumnChange: function (e) {
+  let that=this
+  var data = {
+    multiArray: this.data.multiArray,
+    multiIndex: this.data.multiIndex
+  };
+  data.multiIndex[e.detail.column] = e.detail.value;
+  switch (e.detail.column) {
+    case 0:
+      //当第一列改变  修改置第二列数据
+      let arr = that.getArr(that.data.collegeList[e.detail.value], that.data.majorList)
+
+      data.multiArray[1]=arr
+      that.setData({
+        multiArray: data.multiArray,
+      })
+      //从第二列中拿出第一项，设置第三列的数据
+      let arrColumn2 = that.getArr(arr[0], that.data.stuClassList)
+      data.multiArray[2] = arrColumn2
+      that.setData({
+        multiArray: data.multiArray,
+        
+      })
+      break;
+    case 1:
+       //当第二列改变 改变第三列数据
+      let arr2 = that.getArr(data.multiArray[1][e.detail.value], that.data.stuClassList)
+      data.multiArray[2] = arr2
+      that.setData({
+        multiArray: data.multiArray,
+        
+      })
+      break;
+  }
+},
+
+getArr:function(value,arr){
+  for (let i in arr) {
+    if (value == i) {
+      return arr[i]
+    }
+  }
+},
+
+bindMultiPickerChange: function (e) {
+  this.setData({
+    multiIndex: e.detail.value,
+  })
+
+  this.setData({
+    college:this.data.multiArray[0][this.data.multiIndex[0]],
+    major:this.data.multiArray[1][this.data.multiIndex[1]],
+    stuClass:this.data.multiArray[2][this.data.multiIndex[2]]
+ })
+},
 
 
   idInput: function (e) {
     this.setData({
-      id: e.detail.value,
+      Id: e.detail.value,
     })
 
   },
 
   checkId: function (e) {
-    if (this.data.id.length != 6) {
+    if (this.data.Id.length != 6) {
       wx.showToast({
         title: '账号6位数字',
         icon: 'error',
@@ -32,7 +116,7 @@ Page({
   },
   nameInput: function (e) {
     this.setData({
-      userName: e.detail.value,
+      name: e.detail.value,
     })
   },
   checkName: function (e) {
@@ -41,11 +125,11 @@ Page({
   // 获取输入密码 
   passwordInput: function (e) {
     this.setData({
-      password: e.detail.value
+      pwd: e.detail.value
     })
   },
   checkPassWd: function (e) {
-    if (this.data.password.length < 6) {
+    if (this.data.pwd.length < 6) {
       wx.showToast({
         title: '密码6位以上',
         icon: 'error',
@@ -58,13 +142,13 @@ Page({
   passwordReInput: function (e) {
 
     this.setData({
-      repassword: e.detail.value
+      repwd: e.detail.value
     })
   },
 
 
   checkRePassWd: function (e) {
-    if (this.data.password != this.data.repassword) {
+    if (this.data.pwd != this.data.repwd) {
       wx.showToast({
         title: '两次密码不一致',
         icon: 'error',
@@ -74,10 +158,10 @@ Page({
   },
 
   checkRegisterMsg: function () {
-    if (this.data.id.length == 0 || this.data.userName.length == 0 || this.data.password.length == 0 || this.data.repassword.length == 0) {
+    if (this.data.Id.length == 0 || this.data.name.length == 0 || this.data.pwd.length == 0 || this.data.repwd.length == 0) {
       return "userInfoError"
     }
-    else if (this.data.password != this.data.repassword) { 
+    else if (this.data.pwd != this.data.repwd) { 
        return "passwdError"
     }
     else {
@@ -90,9 +174,14 @@ Page({
 
   registerReq: function () {
     const rigMes = {
-      "userId": this.data.id,
-      "pwd": this.data.password,
-      "userName": this.data.userName
+      "Id": this.data.Id,
+      "pwd": this.data.pwd,
+      "name": this.data.name,
+      "college": this.data.college,
+      "major":this.data.major,
+      "stuClass": this.data.stuClass,
+      "submitdays": this.data.submitdays
+
     }
     var array = JSON.stringify(rigMes);
     const promise = http.post('register', array);

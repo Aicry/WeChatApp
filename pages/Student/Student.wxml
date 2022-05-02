@@ -6,14 +6,15 @@
             <image class="share_svg" src="../../static/images/share_fff.svg"></image>
         </button>
     </view>
+
     <view class="add_group">
         <view class="group_info">
-            <view class="group_name">
-                <text>{{userName}}</text>，坚持健康打卡          
+            <view class="group_name" name="name">
+                <text>{{name}}</text>，坚持健康打卡          
             </view>
             <view class="group_detail">
                 <view class="group__days">成功打卡
-                    <text>{{total}}</text> 天</view>
+                    <text>{{submitdays}}</text> 天</view>
                 <text class="group__tag" bindtap="toDetails">个人中心</text>
             </view>
         </view>
@@ -21,26 +22,28 @@
 
     <form class="form_list" bindsubmit="formSubmit">
         
-        <view class="section">
-            <view class="section__title">
-            <text>*</text> 当前所在地</view>
-            <text>{{address}}</text>  
+      
+
+        <view class="section" >
+            <view class="section__title"><text>*</text> 当前所在地</view>
+            <text name="address">{{address}}</text>  
+            <button bindtap="addressChange">定位</button>
         </view>
 
         <view class="section">
-            <view class="section__title">
-                <text>*</text> 当前是否在校</view>
-            <radio-group class="status_group" name="status" bindchange="inSchoolChange">
+            <view class="section__title"><text>*</text> 当前是否在校</view>
+            <radio-group class="status_group" name="inSchool" bindchange="inSchoolChange">
                 <radio color="#3B82C5" wx:for-items="{{Status}}" wx:key="index" value="{{item}}">
                     <text>{{item}}</text>
                 </radio>
             </radio-group>
+            
         </view>
 
         <view class="section">
             <view class="section__title">
                 <text>*</text> 是否离开学校所在城市</view>
-            <radio-group class="status_group" name="status" bindchange="inCityhange">
+            <radio-group class="status_group" name="inCity" bindchange="inCityhange">
                 <radio color="#3B82C5" wx:for-items="{{Status}}" wx:key="index" value="{{item}}">
                     <text>{{item}}</text>
                 </radio>
@@ -51,7 +54,7 @@
         <view class="section">
             <view class="section__title">
                 <text>*</text> 今日体温(摄氏度)</view>
-            <picker name="tem" bindchange="temChange" value="{{temperature}}" range="{{temList}}">
+            <picker name="temperature" bindchange="temChange" value="{{temperature}}" range="{{temList}}">
                 <view class="picker {{tem?'':'no_picker'}}">
                     <text>{{temperature?temperature:'请选择'}}</text>
                     <text class="piecker_tag">选择</text>
@@ -62,7 +65,7 @@
         <view class="section">
             <view class="section__title">
                 <text>*</text> 本人健康状况</view>
-            <radio-group class="status_group" name="status" bindchange="healthyChange">
+            <radio-group class="status_group" name="healthy" bindchange="healthyChange">
                 <radio color="#3B82C5" wx:for-items="{{healthyStatus}}" wx:key="index" value="{{item}}">
                     <text>{{item}}</text>
                 </radio>
@@ -73,8 +76,8 @@
         <view class="section">
             <view class="section__title">
                 <text>*</text> 是否在当地确认为四类人员</view>
-            <radio-group class="status_group" name="status" bindchange="personStatusChange">
-                <radio color="#3B82C5" wx:for-items="{{statusList}}" wx:key="index" value="{{item}}">
+            <radio-group class="status_group" name="personType" bindchange="personTypeChange">
+                <radio color="#3B82C5" wx:for-items="{{personTypeList}}" wx:key="index" value="{{item}}">
                     <text>{{item}}</text>
                 </radio>
             </radio-group>
@@ -83,7 +86,7 @@
         <view class="section">
             <view class="section__title">
                 <text>*</text> 主要亲属是否有人确诊</view>
-            <radio-group class="status_group" name="status" bindchange="ralativeChange">
+            <radio-group class="status_group" name="relative" bindchange="relativeChange">
                 <radio color="#3B82C5" wx:for-items="{{Status}}" wx:key="index" value="{{item}}">
                     <text>{{item}}</text>
                 </radio>
@@ -91,9 +94,8 @@
         </view>
 
         <view class="section">
-            <view class="section__title">备注(不超过100字)</view>
-            
-            <textarea name="other" maxlength="100" class="textarea" placeholder="请简要描述" bindinput="describeMsgChange"></textarea>>
+            <view class="section__title">备注(不超过100字)</view>       
+            <textarea name="note" maxlength="100" class="textarea" placeholder="请简要描述" bindinput="noteChange"></textarea>>
         </view>
 
 
