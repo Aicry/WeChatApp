@@ -27,13 +27,6 @@
       <input class="inputText" pwd="true" placeholder="请再次输入密码" bindinput="repwdInput" /> 
     </view> 
 
-    <view class="section">
-            <radio-group class="type_group" name="Type" bindchange="TypeChange">
-                <radio color="#3B82C5" wx:for-items="{{TypeList}}" wx:key="index" value="{{item}}">
-                    <text>{{item}}</text>     
-                </radio>
-            </radio-group>
-    </view>
     <!--按钮-->
     <view class="changeBtnView"> 
       <button class="changeBtn" type="primary" size="{{primarySize}}" 

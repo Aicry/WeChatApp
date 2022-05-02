@@ -1,0 +1,34 @@
+<view class="view_contain">
+
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+
+<view class="view_1">
+  <view class="view_image_text">
+    <text>{{name}}</text>
+    <text>学号：{{Id}}</text>
+    <text>{{college}}{{major}}{{stuClass}}</text>
+  </view>
+</view>
+
+<view class="big3">
+    
+
+<view class="list-item" wx:for = "{{items}}" wx:key="item"> 
+ <text class="item-text">{{item.date}}</text>
+ <text class="item-text">{{item.address}}</text>
+ <text class="item-text">{{item.healthy}}</text>
+ <text class="item-text">{{item.inCity}}</text>
+ <text class="item-text">{{item.inSchool}}</text>
+ <text class="item-text">{{item.note}}</text>
+ <text class="item-text">{{item.personType}}</text>
+ <text class="item-text">{{item.relative}}</text>
+ <text class="item-text">{{item.temperature}}</text>
+</view>
+</view>
+
+</view>
+
+ 

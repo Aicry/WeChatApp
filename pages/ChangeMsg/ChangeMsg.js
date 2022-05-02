@@ -9,7 +9,11 @@ Page({
     data: {
       name:'',
       Id:'',
-      Type:''
+
+      Type:'',
+      pwd:'',
+      repwd:'',
+      result:''
      },
     
      /**
@@ -26,11 +30,79 @@ Page({
              name:json1['name'],
              Type:json1['Type'],
            })
-     
+         
          })
        },
  
+       pwdInput :function (e) { 
+        this.setData({ 
+          pwd:e.detail.value ,
+        }) 
+         
+        
+
+      }, 
+    // 获取输入密码 
+      repwdInput :function (e) { 
+        this.setData({ 
+          repwd:e.detail.value 
+        }) 
+        }, 
+
+
+       commit: function () { 
+
+          if(this.data.pwd.length == 0 || this.data.repwd.length == 0){ 
+            wx.showToast({   
+              title: '请输入密码',   
+              icon: 'error',   
+              duration: 1000   
+            })   
+            
+      }
+      else if(this.data.pwd !=this.data.repwd ){
+        wx.showToast({   
+          title: '两次密码不一致',   
+          icon: 'error',   
+          duration: 1000   
+        })   
+      }
+      else { 
+          const changeMes={
+            "Id" : this.data.Id,
+            "pwd" : this.data.pwd,
+            "Type":this.data.Type
+          }
+        var array = JSON.stringify(changeMes);
+        const promise= http.post("ChangePwd",array);     
+        promise.then(res => {
+        console.log(res.data);
+        this.setData({
+          result:res.data
+        })
+        if(this.data.result!='fail'){
+          wx.showToast({   
+            title: '修改成功',   
+            icon: 'success',   
+            duration: 1000   
+          })  
+        }
+        else {
+          wx.showToast({
+            title: '修改失败',
+            icon: 'error',
+            duration: 1000,
+          })
+         
+      }
+    })
+  
+         
+      
        
+          }   
+        } ,
+
        return:function () {
       
         wx.navigateBack({

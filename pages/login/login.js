@@ -70,7 +70,9 @@ Page({
         const promise= http.post(loginType,array);     
         promise.then(res => {
         console.log(res.data);
-        this.setData({
+
+        if(res.data!='fail'){
+          this.setData({
             name:res.data.name,
             submitdays:res.data.submitdays,
             college:res.data.college,
@@ -78,7 +80,6 @@ Page({
             stuClass:res.data.stuClass,
             Type:this.data.Type
         })
-        if(this.data.name!='fail'){
           wx.navigateTo({
             url: url,  
             success: (res) => {
@@ -87,7 +88,6 @@ Page({
           }
         })
         }
-
         else {
           wx.showToast({
             title: '账号或密码错误',

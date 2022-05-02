@@ -12,17 +12,33 @@ Page({
       { title: "帮助与反馈" },
       { title: "返回" }
     ],
+    url:[
+      "/pages/ChangeMsg/ChangeMsg",
+      "/pages/SubmitLog/SubmitLog",
+      "/pages/Help/Help",
+      ""
+    ],
     name: '',
     Id: '',
     college: '',
     major: '',
     stuClass: '',
-    Type: ''
+    Type: '',
   },
   TypeChange: function (e) {
-    console.log(e.detail.value );
-    wx.navigateTo({
-      url: `/pages/ChangeMsg/ChangeMsg`,
+    
+    console.log(e)
+   var bindex = parseInt(e.currentTarget.dataset.index);
+    console.log(bindex);
+    if(bindex==3){
+      wx.navigateBack({
+        delta: 1,
+      })
+    }
+    else
+    {
+      wx.navigateTo({
+      url:this.data.url[bindex],
       success: (res) => {
         const ChangeMsg = {
           "Id": this.data.Id,
@@ -34,6 +50,7 @@ Page({
           { data: array })
       }
     })
+  }
   },
   onLoad: function () {
     const eventChannel = this.getOpenerEventChannel();
@@ -57,4 +74,7 @@ Page({
 
 
 
+
+
+  
 })
