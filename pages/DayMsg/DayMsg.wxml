@@ -1,0 +1,22 @@
+<view class="view_contain">
+
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+
+
+ 
+      <view class="list-item" >
+        <text class="item-text">{{'日期'}}:{{item.date}}</text>
+        <text class="item-text">{{'定位'}}:{{item.address}}</text>
+        <text class="item-text">{{'是否在校'}}:{{item.inSchool}}</text>
+        <text class="item-text">{{'是否离开学校所在城市'}}:{{item.inCity}}</text>
+        <text class="item-text">{{'今日体温'}}:{{item.temperature}}</text>
+        <text class="item-text">{{'健康状况'}}:{{item.healthy}}</text>
+        <text class="item-text">{{'是否在当地确认为四类人员'}}:{{item.personType}}</text>
+        <text class="item-text">{{'主要亲属是否有人确诊'}}:{{item.relative}}</text>
+        <text class="item-text">{{'备注'}}:{{item.note}}</text>
+
+      </view>
+</view>

@@ -25,9 +25,11 @@
       
 
         <view class="section" >
-            <view class="section__title"><text>*</text> 当前所在地</view>
+            <view class="section__title"><text>*</text> 当前所在地
+               
+            </view>
             <text name="address">{{address}}</text>  
-            <button bindtap="addressChange">定位</button>
+            <button class="address_btn" bindtap="addressChange">点击定位</button>
         </view>
 
         <view class="section">
@@ -76,7 +78,7 @@
         <view class="section">
             <view class="section__title">
                 <text>*</text> 是否在当地确认为四类人员</view>
-            <radio-group class="status_group" name="personType" bindchange="personTypeChange">
+             <radio-group class="type_group" name="personType" bindchange="personTypeChange">
                 <radio color="#3B82C5" wx:for-items="{{personTypeList}}" wx:key="index" value="{{item}}">
                     <text>{{item}}</text>
                 </radio>
@@ -94,14 +96,14 @@
         </view>
 
         <view class="section">
-            <view class="section__title">备注(不超过100字)</view>       
+            <view class="section__title">(不超过100字)</view>       
             <textarea name="note" maxlength="100" class="textarea" placeholder="请简要描述" bindinput="noteChange"></textarea>>
         </view>
 
 
         <view class="terms">
-            <checkbox-group bindchange="checkedTerms">
-                <checkbox value="true" color="#3B82C5">
+            <checkbox-group bindchange="checkedTerms" >
+                <checkbox value="true" color="#3B82C5" checked ="true">
                     <text class="terms_text">我已知晓本次健康打卡的所列事项，并保证以上填写内容正确属实。</text>
                 </checkbox>
             </checkbox-group>

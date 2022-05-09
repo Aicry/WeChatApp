@@ -1,66 +1,58 @@
-// pages/Admin/Admin.js
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+  
+      info: [
+        { title: "学生账号管理" },
+        { title: "学生填报信息" },      
+        { title: "异常信息警示" }
+      ],
+      url:[
+        "/pages/StudentManage/StudentManage",
+        "/pages/TodaySubmit/TodaySubmit",
+        "/pages/MsgWarning/MsgWarning",
+        ""
+      ],
+      name: '',
+      Id: '',
+      college: '',
+      Type: '',
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
+    TypeChange: function (e) {
+      
+        console.log(e)
+        var bindex = parseInt(e.currentTarget.dataset.index);
+        console.log(bindex);
+        wx.navigateTo({
+        url:this.data.url[bindex],
+        success: (res) => {
+          res.eventChannel.emit('acceptDataFromOpenerPage',
+            { data: this.data.college })
+        }
+      })
+    
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+    onLoad: function () {
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.on('acceptDataFromOpenerPage', (data) => {
+        console.log(data); 
+        this.setData({
+          Id:data.data.Id,
+          name:data.data.name,
+          college:data.data.college,
+          Type:data.data.Type,
+        })
+      })
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
-})
+  
+  
+  
+  
+  
+    
+  })
+  

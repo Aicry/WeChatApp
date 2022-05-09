@@ -18,13 +18,19 @@
       <input class="inputText" pwd="true" placeholder="请输入密码" bindinput="passwordInput" /> 
     </view> 
 
-    <view class="section">
-            <radio-group class="type_group" name="Type" bindchange="TypeChange">
-                <radio color="#3B82C5" wx:for-items="{{TypeList}}" wx:key="index" value="{{item}}">
-                    <text>{{item}}</text>     
+   
+     <radio-group class="type_group" name="Type" bindchange="TypeChange">
+                <radio value="学生" style="position: relative; left: -100rpx; top: 0rpx">
+                    <text>学生</text>     
                 </radio>
-            </radio-group>
-    </view>
+                <radio value="管理员">
+                    <text>管理员</text>     
+                </radio>
+                <radio value="超级管理员" style="position: relative; left: 106rpx; top: 0rpx">
+                    <text>超级管理员</text>     
+                </radio>
+    </radio-group>
+   
     <!--按钮-->
     <view class="loginBtnView"> 
       <button class="loginBtn" type="primary" size="{{primarySize}}" 

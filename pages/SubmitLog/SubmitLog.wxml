@@ -1,34 +1,16 @@
 <view class="view_contain">
 
-<!-- 第一部分 -->
-<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
-<view class="header" style="{{header_style}}">
-</view>
-
-<view class="view_1">
-  <view class="view_image_text">
-    <text>{{name}}</text>
-    <text>学号：{{Id}}</text>
-    <text>{{college}}{{major}}{{stuClass}}</text>
+  <!-- 第一部分 -->
+  <image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+  <view class="header" style="{{header_style}}">
   </view>
-</view>
 
-<view class="big3">
-    
+  <view class='record' wx:for="{{items}}" wx:key="item" bindtap='chooserecord' data-index="{{index}}">
+    <view class='temperature'>{{item.temperature}}</view>
+    <view class="healthy round {{item.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.healthy}}</view>
+    <text class='time'>{{item.date}}</text>
+  </view>
 
-<view class="list-item" wx:for = "{{items}}" wx:key="item"> 
- <text class="item-text">{{item.date}}</text>
- <text class="item-text">{{item.address}}</text>
- <text class="item-text">{{item.healthy}}</text>
- <text class="item-text">{{item.inCity}}</text>
- <text class="item-text">{{item.inSchool}}</text>
- <text class="item-text">{{item.note}}</text>
- <text class="item-text">{{item.personType}}</text>
- <text class="item-text">{{item.relative}}</text>
- <text class="item-text">{{item.temperature}}</text>
-</view>
-</view>
+
 
 </view>
-
- 

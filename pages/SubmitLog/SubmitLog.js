@@ -7,11 +7,26 @@ Page({
      Id:'',
      name:'',
      Type:'',
-     items:[]
+     items:[],
+     record: [],
+     index: ""
+
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
+  
+    chooserecord: function (e) {
+      var checkid = e.currentTarget.dataset.index;
+      console.log(checkid);
+      wx.navigateTo({
+        url: '/pages/DayMsg/DayMsg',
+        success: (res) => {
+          var array = JSON.stringify(this.data.items[checkid]);
+          res.eventChannel.emit('acceptDataFromOpenerPage',
+            { data: array })
+        }
+
+      })
+  
+    },
     onLoad: function () {
         const eventChannel = this.getOpenerEventChannel();
         eventChannel.on('acceptDataFromOpenerPage', (data) => {
@@ -41,7 +56,7 @@ Page({
     const promise= http.post("GetSubmitLog",this.data.Id);     
     promise.then(res => {
     console.log(res.data);
-    console.log(res.data.submitLogs[0].Id)
+    console.log(res.data.submitLogs[0].Id);
     this.setData({
         items:res.data.submitLogs
     })

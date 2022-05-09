@@ -1,0 +1,16 @@
+<view class="view_contain">
+
+    <!-- 第一部分 -->
+    <image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+    <view class="header" style="{{header_style}}">
+    </view>
+
+    <view class='record' wx:for="{{items}}" wx:key="item" bindtap='chooserecord' data-index="{{index}}">
+        <view class='name'>{{item.studentMsg.name}}</view>
+        <view class="healthy round {{item.dailySubmitMsg.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.dailySubmitMsg.healthy}}</view>
+        <text class='time'>{{item.dailySubmitMsg.date}}</text>
+    </view>
+
+
+
+</view>

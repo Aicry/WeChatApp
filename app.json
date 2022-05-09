@@ -1,18 +1,18 @@
 {
     "pages": [
         "pages/login/login",
-        "pages/SubmitLog/SubmitLog",
-        
-        "pages/ChangeMsg/ChangeMsg",
-        
-        
-        "pages/StudentPersonal/StudentPersonal",
+        "pages/StudentManage/StudentManage",
         "pages/Student/Student",
+        "pages/SubmitLog/SubmitLog",
+        "pages/ChangeMsg/ChangeMsg",
+        "pages/StudentPersonal/StudentPersonal",
         "pages/register/register",
         "pages/Admin/Admin",
         "pages/SuperAdmin/SuperAdmin",
-        
-        "pages/Help/Help"
+        "pages/Help/Help",
+        "pages/DayMsg/DayMsg",
+        "pages/TodaySubmit/TodaySubmit",
+        "pages/StuMsgChange/StuMsgChange"
     ],
     "window": {
         "navigationBarTextStyle": "black",

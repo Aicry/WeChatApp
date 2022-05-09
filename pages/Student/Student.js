@@ -1,5 +1,5 @@
 import http from '../../utils/api.js';
-import util, { formatTime } from '../../utils/util.js'
+import util from '../../utils/util.js'
 let QQMapWX = require('../../libs/qqmap-wx-jssdk')
 let qqmapsdk;
 var app = getApp();
@@ -23,7 +23,8 @@ Page({
     longitude: '',
     submitdays: '',
     address: '',
-    disabled: true,
+    disabled: false,
+
     Status: ["是", "否"],
     healthyStatus: ["正常", "异常"],
     temList: ["低于36℃", "36~37.3℃", "37.3~38℃", "38℃以上"],
@@ -214,25 +215,23 @@ Page({
 
 
   checkedTerms(e) {
+    if(this.data.submitResult!='success'){
     this.setData({
       disabled: !e.detail.value.length
     })
+  }
   },
 
-  formSubmit: function (e) {
-    console.log(e.detail.value)
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = "0" + month;
+ 
+  checkedSubmintMsg:function () {
+    if(this.data.address==''||this.data.inSchool==''||this.data.inCity==''||this.data.temperature==''||this.data.healthy==''||this.data.personType==''||this.data.relative==''||this.data.Id==''){
+      wx.showToast({
+        title: '填报信息不全',
+        icon: 'error',
+        duration: 1000,
+      })
     }
-    if (day < 10) {
-      day = "0" + day;
-    }
-    var nowDate = year + "-" + month + "-" + day;
-    console.log(nowDate);
+    else{
     const submintMsg = {
       "Id": this.data.Id,
       "address": this.data.address,
@@ -243,7 +242,7 @@ Page({
       "personType": this.data.personType,
       "relative": this.data.relative,
       "note": this.data.note,
-      "date": nowDate
+      "date": util.getDate()
     }
     var array = JSON.stringify(submintMsg);
     const promise = http.post('Submit', array);
@@ -252,15 +251,41 @@ Page({
       this.setData({
         submitResult: res.data
       })
-      if (this.data.name != '') {
+      if (this.data.submitResult == 'success') {
         console.log("success");
+        wx.showToast({
+          title: '报送成功',
+          icon: 'success',
+          duration: 1000,
+        })
+        
+        this.setData({
+          submitdays:String(parseInt(this.data.submitdays)+1),
+          disabled:true
+        })
       }
-
-      else {
-        console.log("fail");
+      else if (this.data.submitResult == 'Duplicate') {
+        console.log("Duplicate");
+        wx.showToast({
+          title: '今日已报送',
+          icon: 'error',
+          duration: 1000,
+        })
+      }
+        else{
+        wx.showToast({
+          title: '请检查信息',
+          icon: 'error',
+          duration: 1000,
+        })
       }
     })
 
+  }
+  },
+  formSubmit: function (e) {
+   
+    this.checkedSubmintMsg();
 
 
 
@@ -307,63 +332,3 @@ Page({
   }
 })
 
-
-/**
- *
-
- let {
-      address,
-      inSchool,
-      inCity,
-      temperature,
-      health,
-      personStatus,
-      ralative,
-    } = e.detail.value;
-    const verify = [
-      {
-        value: address,
-        text: "定位出错"
-      },
-
-      {
-        value: inSchool,
-        text: "请选择是否在校"
-      },
-
-      {
-        value: inCity,
-        text: "请选择是否离开学校所在城市"
-      },
-
-      {
-        value: temperature,
-        text: "请输入体温"
-      },
-
-      {
-        value: health,
-        text: "请选择健康状况"
-      },
-
-      {
-        value: personStatus,
-        text: "请选择是否被确认为四类人员"
-      },
-
-      {
-        value: ralative,
-        text: "请选择主要亲属是否确诊"
-      },
-    ]
-
-    let isValue = verify.findIndex(ele => !ele.value);
-    if (isValue != -1) {
-      wx.showToast({
-        title: verify[isValue].text,
-        icon: 'none'
-      })
-    } else {
-         console.log("提交测试")
-    }
- */

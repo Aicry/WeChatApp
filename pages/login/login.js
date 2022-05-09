@@ -1,6 +1,6 @@
 
 import http from '../../utils/api.js';
-
+import util from '../../utils/util.js'
 Page({
 
     /**
@@ -15,12 +15,10 @@ Page({
         major:'',
         stuClass:'',
         Type:'',
-        TypeList:["学生", "管理员","超级管理员"],
     },
 
     onLoad: function () {
-      var date = new Date();
-     date=date.toString();
+     var date=util.getDate()
      console.log(date);
     },
     idInput :function (e) { 
@@ -72,14 +70,31 @@ Page({
         console.log(res.data);
 
         if(res.data!='fail'){
+
+          if(this.data.Type=="学生"){
           this.setData({
             name:res.data.name,
             submitdays:res.data.submitdays,
             college:res.data.college,
             major:res.data.major,
             stuClass:res.data.stuClass,
-            Type:this.data.Type
+        
         })
+      }
+      if(this.data.Type=="管理员"){
+        this.setData({
+          name:res.data.name,      
+          college:res.data.college,        
+
+      })
+    }
+    if(this.data.Type=="超级管理员"){
+      this.setData({
+        name:res.data.name,          
+       
+    })
+  }
+
           wx.navigateTo({
             url: url,  
             success: (res) => {

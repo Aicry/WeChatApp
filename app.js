@@ -21,7 +21,7 @@ App({
     globalData:{
        globalUserId:'',
        globalUserName:'',
-       httpUrl:'http://192.168.1.112:8000',
+       httpUrl:'http://192.168.1.110:8000',
        collegeList: ['化生院', '土环院','马院','计算机科学与人工智能学院'],
        majorList: { 
         
