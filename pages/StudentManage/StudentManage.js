@@ -1,5 +1,7 @@
 import http from '../../utils/api.js';
 import util from '../../utils/util.js'
+const app = getApp()
+var inputTimeout = null;
 Page({
     /**
      * 页面的初始数据
@@ -7,47 +9,15 @@ Page({
     data: {
      college:'',
      students:[],
+     studentList:[],
+     studentList_search:[],
      items: [],
      index: "",
      inputShowed: false,
      focus:true,
-     inputVal: ""
+     searchText: ""
     },
-    showInput: function () {
-        this.setData({
-            inputShowed: true
-        });
-    },
-    hideInput: function () {
-        this.setData({
-            inputVal: "",
-            inputShowed: false
-        });
-    },
-    clearInput: function () {
-        this.setData({
-            inputVal: ""
-        });
-    },
-    inputTyping: function (e) {
-        this.setData({
-            inputVal: e.detail.value
-        });
-    },
-    chooserecord: function (e) {
-      var checkid = e.currentTarget.dataset.index;
-      console.log(checkid);
-      wx.navigateTo({
-        url: '/pages/StuMsgChange/StuMsgChange',
-        success: (res) => {
-          var array = JSON.stringify(this.data.students[checkid]);
-          res.eventChannel.emit('acceptDataFromOpenerPage',
-            { data: array })
-        }
 
-      })
-  
-    },
     onLoad: function () {
         const eventChannel = this.getOpenerEventChannel();
         eventChannel.on('acceptDataFromOpenerPage', (data) => {
@@ -55,8 +25,9 @@ Page({
           this.setData({
             college:data.data
           })
+          this.change();
         })
-      this.change();
+     
     },
     /**
      * 生命周期函数--监听页面显示
@@ -74,14 +45,139 @@ Page({
     console.log(res.data);
     this.setData({
         items:res.data,
-        students:res.data.students
+        students:res.data.students,
+        studentList:res.data.students
     })
     })
    },
+   itemClickEvent: function (e) {
+   console.log('itemClickEvent e', e); 
 
-   
+    var item = e.detail.item ? e.detail.item : e.currentTarget.dataset.item;
+    console.log(item);
+    this.itemClick(item);
+
+  },
+   itemClick: function (item){
+    wx.showActionSheet({
+      itemList: ['更改信息','删除学生','今日报送'],
+      success(res) {
+        if (res.tapIndex == 0 ) {
+          wx.navigateTo({
+            url:'/pages/StuMsgChange/StuMsgChange',
+            success: (res) => {
+              res.eventChannel.emit('acceptDataFromOpenerPage',
+                { data: item })
+            }
+          })
+        } else if (res.tapIndex == 1 ) {
+       
+          
+        } else if (res.tapIndex == 2 ) {
+     
+        }
+      },
+      fail(res) {
+        console.log(res.errMsg);
+      }
+    })
+
+  },
+
+   //开始搜索
+  searchSubmit: function (e) {
+    console.log('searchSubmit e', e);
+    var studentList_search = [];
+    var studentList = this.data.studentList;
+    var searchText = this.data.searchText;
+
+    if (this.data.searchText.length > 0){
+      //本地搜索，比较姓名、拼音....
+      for (var i in studentList){
+        if (studentList[i].name.indexOf(searchText) != -1 
+          || searchText.indexOf(studentList[i].name) != -1
+          || studentList[i].major.indexOf(searchText) != -1
+          || searchText.indexOf(studentList[i].major) != -1
+          || studentList[i].stuClass.indexOf(searchText) != -1
+          || searchText.indexOf(studentList[i].stuClass) != -1
+          || studentList[i].Id.indexOf(searchText) != -1
+          || searchText.indexOf(studentList[i].Id) != -1){
+            studentList_search.push(studentList[i]);
+        }
+      }
+      if (studentList_search.length == 0){
+        app.toastSuccess('无匹配结果');
+      }
+    }
+
+    //搜索结果
+    this.setData({
+      studentList_search: studentList_search,
+    });
+
+    console.log('this.data.studentList_search',studentList_search)
     
+    //一些处理
+    if (inputTimeout != null){
+      clearTimeout(inputTimeout);
+      inputTimeout = null;
+    }
+  },
 
-   })
+
+  initStudentList: function () {
+
+    let studentList = this.data.studentList
+
+ 
+    this.setData({
+      studentList: studentList,
+      searchFocus: false,
+      searchText: '',
+      studentList_search: [],
+    })
+
+  
+
+    wx.stopPullDownRefresh()
+  },
+   
+  
+
+
+
+    //搜索内容输入变化
+    searchTextInput: function (e) {
+      //console.log('searchTextInput e', e);
+      this.setData({
+        searchText: e.detail.value,
+      });
+      
+      //即时搜索
+      if (inputTimeout == null){
+        var that = this;
+        inputTimeout = setTimeout(function () {
+          that.searchSubmit(e);
+        }, 1000);
+      }
+    },
+  showInput: function () {
+    this.setData({
+        inputShowed: true
+    });
+},
+hideInput: function () {
+    this.setData({
+      searchText: "",
+      inputShowed: false
+    });
+},
+clearInput: function () {
+    this.setData({
+      searchText: ""
+    });
+},
+
+})
    
    

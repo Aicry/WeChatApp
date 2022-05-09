@@ -25,20 +25,23 @@
     <label class="loginLab">密码</label>
     <input class="inputText" password="true" placeholder="请输入6位以上密码" bindinput="passwordInput" bindblur="checkPassWd" />
   </view>
-
+  <view class="line"></view>
   <view class="inputView">
     <image class="keyImage" src="../../static/images/pwd.png"></image>
     <label class="loginLab">密码</label>
     <input class="inputText" password="true" placeholder="请再次输入密码" bindinput="passwordReInput" bindblur="checkRePassWd" />
   </view>
+  <view class="line"></view>
+  <label type="default">学院：{{college}}</label>
+  <label type="default">专业：{{major}}</label>
+  <label type="default">班级：{{stuClass}}</label>
   <view class="section">
-
     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
       <view class="picker">
-       学院：{{multiArray[0][multiIndex[0]]}}     | 专业： {{multiArray[1][multiIndex[1]]}}     | 班级：{{multiArray[2][multiIndex[2]]}}
+        <!-- 学院：{{multiArray[0][multiIndex[0]]}}     | 专业： {{multiArray[1][multiIndex[1]]}}     | 班级：{{multiArray[2][multiIndex[2]]}}-->
+        <button class="registerBtn" type="primary" style="position: relative; left: 179rpx; top: -127rpx; width: 220rpx; height: 81rpx; display: block; box-sizing: border-box">专业班级</button>
       </view>
     </picker>
-
   </view>
 
 

@@ -2,14 +2,14 @@
     <image class="header_bg" mode="widthFix" src="../../static/images/admin.png"></image>
     <view class="header" style="{{header_style}}">
     </view>
-   
+
     <view class="page__bd">
         <view class="weui-search-bar">
             <view class="weui-search-bar__form">
                 <view class="weui-search-bar__box">
                     <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
-                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{searchText}}" focus="{{inputShowed}}" bindinput="searchTextInput" />
+                    <view class="weui-icon-clear" wx:if="{{searchText.length > 0}}" bindtap="clearInput">
                         <icon type="clear" size="14"></icon>
                     </view>
                 </view>
@@ -20,24 +20,38 @@
             </view>
             <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
         </view>
-        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
+        <view class="weui-cells searchbar-result" wx:if="{{searchText.length > 0}}">
+
+            <view wx:for="{{studentList_search}}" wx:key="id" class="weui-cell weui-cell_access weui-search_r" data-item='{{item}}' bindtap="itemClickEvent">
+
+                <view class="weui-cell__bd weui-cell_primary">
+                    <view>{{item.name}}</view>
+                    <view class="grey">学号：{{item.Id}}</view>
                 </view>
-            </navigator>
-    
+                <view class="weui-cell__ft">
+                    <view class="weui-menulist__flex">
+                        <text style="font-size: 32rpx;line-height: 50rpx;">{{item.major}}</text>
+                        <view>{{item.stuClass}}</view>
+                    </view>
+                </view>
+            </view>
+
         </view>
     </view>
-    <scroll-view wx:if="{{focus}}" class="scrollview" scroll-y="true">
-        <view wx:for="{{students}}" wx:key="item" bindtap='chooserecord' data-index="{{index}}">
-            <view class="scrollItem">
-                <text class="font1" space="nbsp"> {{item.name}}</text>
-                <text class="font1" space="nbsp"> {{item.major}}</text>
-                <text class="font1" space="nbsp"> {{item.stuClass}}</text>
+    <view class="weui-cells searchbar-result" wx:if="{{studentList_search.length == 0}}">
+
+        <view wx:for="{{students}}" wx:key="id" class="weui-cell weui-cell_access weui-search_r" data-item='{{item}}' bindtap="itemClickEvent">
+
+            <view class="weui-cell__bd weui-cell_primary">
+                <view>{{item.name}}</view>
+                <view class="grey">学号：{{item.Id}}</view>
+            </view>
+            <view class="weui-cell__ft">
+                <view class="weui-menulist__flex">
+                    <text style="font-size: 32rpx;line-height: 50rpx;">{{item.major}}</text>
+                    <view>{{item.stuClass}}</view>
+                </view>
             </view>
         </view>
-    </scroll-view>
-
-   
+    </view>
 </view>

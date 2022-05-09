@@ -6,10 +6,12 @@
   </view>
 
   <view class='record' wx:for="{{items}}" wx:key="item" bindtap='chooserecord' data-index="{{index}}">
-    <view class='temperature'>{{item.temperature}}</view>
-    <view class="healthy round {{item.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.healthy}}</view>
+     <view class='temperature'>{{item.temperature}}
+     </view>
+    <view class="healthy round {{item.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.healthy}}
+     </view>
     <text class='time'>{{item.date}}</text>
-  </view>
+      </view>
 
 
 
