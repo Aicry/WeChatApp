@@ -1,4 +1,5 @@
 import http from '../../utils/api.js';
+import util from '../../utils/util.js';
 var app = getApp();
 Page({
 
@@ -10,13 +11,15 @@ Page({
     pwd: '',
     repwd: '',
     name: '',
+    Telephone:'',
     college:'',
     major:'',
     stuClass:'',
+    submitdays:'0',
+    submitDate:util.getDate(),
     collegeList:'',
     majorList:'',
     stuClassList:'',
-    submitdays:'0',
     status: '',
     multiArray: [[], [], []],
     multiIndex: [0, 0, 0]
@@ -122,6 +125,20 @@ bindMultiPickerChange: function (e) {
   checkName: function (e) {
 
   },
+  TelephoneInput:function (e) {
+    this.setData({
+      Telephone: e.detail.value,
+    })
+  },
+  checkTelephone:function (e) {
+    if (this.data.Telephone.length < 11) {
+      wx.showToast({
+        title: '手机号11位',
+        icon: 'error',
+        duration: 1000
+      })
+    }
+  },
   // 获取输入密码 
   passwordInput: function (e) {
     this.setData({
@@ -177,11 +194,12 @@ bindMultiPickerChange: function (e) {
       "Id": this.data.Id,
       "pwd": this.data.pwd,
       "name": this.data.name,
+      "Telephone": this.data.Telephone,
       "college": this.data.college,
       "major":this.data.major,
       "stuClass": this.data.stuClass,
-      "submitdays": this.data.submitdays
-
+      "submitdays": this.data.submitdays,
+      "submitDate":this.data.submitDate
     }
     var array = JSON.stringify(rigMes);
     const promise = http.post('register', array);

@@ -10,11 +10,13 @@ Page({
         Id: '', 
         pwd:'' ,
         name:'',
+        Telephone:'',
         submitdays:'',
         college:'',
         major:'',
         stuClass:'',
         Type:'',
+        submitDate:''
     },
 
     onLoad: function () {
@@ -74,11 +76,12 @@ Page({
           if(this.data.Type=="学生"){
           this.setData({
             name:res.data.name,
+            Telephone:res.data.Telephone,
             submitdays:res.data.submitdays,
             college:res.data.college,
             major:res.data.major,
             stuClass:res.data.stuClass,
-        
+            submitDate:res.data.submitDate,
         })
       }
       if(this.data.Type=="管理员"){

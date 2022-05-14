@@ -1,10 +1,11 @@
 {
     "pages": [
+       
         "pages/login/login",
         "pages/StudentManage/StudentManage",
         "pages/Student/Student",
         "pages/SubmitLog/SubmitLog",
-        "pages/ChangeMsg/ChangeMsg",
+        "pages/ChangePwd/ChangePwd",
         "pages/StudentPersonal/StudentPersonal",
         "pages/register/register",
         "pages/Admin/Admin",
@@ -12,13 +13,17 @@
         "pages/Help/Help",
         "pages/DayMsg/DayMsg",
         "pages/TodaySubmit/TodaySubmit",
-        "pages/StuMsgChange/StuMsgChange"
+        "pages/ChangeTel/ChangeTel",
+        "pages/StudentDetails/StudentDetails",
+        "pages/ListNeedSubmit/ListNeedSubmit"
+        
     ],
     "window": {
         "navigationBarTextStyle": "black",
         "backgroundColor": "#f5f5f5",
         "navigationStyle": "custom"
     },
+   
     "permission": {
         "scope.userLocation": {
             "desc": "我们将获取你的位置"

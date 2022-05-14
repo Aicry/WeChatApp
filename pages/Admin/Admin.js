@@ -8,14 +8,14 @@ Page({
   
       info: [
         { title: "学生账号管理" },
-        { title: "学生填报信息" },      
-        { title: "异常信息警示" }
+        { title: "学生填报信息" },   
+        { title: "未报送学生表" },    
+       
       ],
       url:[
         "/pages/StudentManage/StudentManage",
         "/pages/TodaySubmit/TodaySubmit",
-        "/pages/MsgWarning/MsgWarning",
-        ""
+        "/pages/ListNeedSubmit/ListNeedSubmit"
       ],
       name: '',
       Id: '',

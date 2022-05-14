@@ -22,6 +22,7 @@ Page({
     latitude: '',
     longitude: '',
     submitdays: '',
+    submitDate:'',
     address: '',
     disabled: false,
 
@@ -29,6 +30,7 @@ Page({
     healthyStatus: ["正常", "异常"],
     temList: ["低于36℃", "36~37.3℃", "37.3~38℃", "38℃以上"],
     personTypeList: ["否", "确诊患者", "疑似患者", "可能感染的发热患者", "密切接触者"],
+    Telephone:'',
     college:'',
     major:'',
     stuClass:'',
@@ -47,10 +49,12 @@ Page({
       this.setData({
         name: data.data.name,
         Id: data.data.Id,
+        Telephone:data.data.Telephone,
         college:data.data.college,
         major:data.data.major,
         stuClass:data.data.stuClass,
         submitdays:data.data.submitdays,
+        submitDate:data.data.submitDate,
         Type:data.data.Type
       })
 
@@ -309,6 +313,7 @@ Page({
         const StudentMsg = {
           "Id": this.data.Id,
           "name": this.data.name,
+          "Telephone":this.data.Telephone,
           "college": this.data.college,
           "major": this.data.major,
           "stuClass": this.data.stuClass,

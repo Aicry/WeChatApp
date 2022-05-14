@@ -19,6 +19,13 @@
     <input class="inputText" placeholder="请输入姓名" bindinput="nameInput" bindblur="checkName" />
   </view>
   <view class="line"></view>
+
+  <view class="inputView">
+    <image class="nameImage" mode="" src="../../static/images/user.png"></image>
+    <label class="loginLab">姓名</label>
+    <input class="inputText" placeholder="请输入手机号码" bindinput="TelephoneInput" bindblur="checkTelephone" />
+  </view>
+  <view class="line"></view>
   <!--密码-->
   <view class="inputView">
     <image class="keyImage" src="../../static/images/pwd.png"></image>

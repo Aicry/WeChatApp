@@ -41,7 +41,6 @@ page {
     height: 100rpx;
     /* margin-top: 20rpx; */
     position: relative; /*父元素位置要设置为相对*/
-   
     
   }
   

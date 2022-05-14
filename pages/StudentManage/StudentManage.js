@@ -60,21 +60,37 @@ Page({
   },
    itemClick: function (item){
     wx.showActionSheet({
-      itemList: ['更改信息','删除学生','今日报送'],
+      itemList: ['更改密码','更改手机','拨打电话','删除学生','今日报送'],
       success(res) {
-        if (res.tapIndex == 0 ) {
+        const msg = {
+          "Id": item.Id,
+          "name": item.name,
+          "pwd":item.pwd,
+          "Telephone": item.Telephone,
+          "Type": '学生'
+        }
+        var array = JSON.stringify(msg);
+        if (res.tapIndex == 0) {
           wx.navigateTo({
-            url:'/pages/StuMsgChange/StuMsgChange',
-            success: (res) => {
+            url: '/pages/ChangePwd/ChangePwd',
+            success: (res) => {      
               res.eventChannel.emit('acceptDataFromOpenerPage',
-                { data: item })
+                { data: array })
             }
           })
-        } else if (res.tapIndex == 1 ) {
-       
-          
+        } else if (res.tapIndex == 1) {
+          wx.navigateTo({
+            url: '/pages/ChangeTel/ChangeTel',
+            success: (res) => {
+              res.eventChannel.emit('acceptDataFromOpenerPage',
+                { data: array })
+            }
+          })
+
         } else if (res.tapIndex == 2 ) {
-     
+          wx.makePhoneCall({
+            phoneNumber: item.Telephone,
+          })
         }
       },
       fail(res) {

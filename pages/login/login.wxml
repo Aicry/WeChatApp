@@ -15,7 +15,7 @@
     <view class="inputView"> 
       <image class="keyImage" src="../../static/images/pwd.png"></image> 
       <label class="loginLab">密码</label> 
-      <input class="inputText" pwd="true" placeholder="请输入密码" bindinput="passwordInput" /> 
+      <input class="inputText" password='true' placeholder="请输入密码" bindinput="passwordInput" /> 
     </view> 
 
    

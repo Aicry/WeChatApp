@@ -1,16 +1,22 @@
-<view class="view_contain">
-
-    <!-- 第一部分 -->
-    <image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
-    <view class="header" style="{{header_style}}">
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+<view class="container">
+    <view class="left_tabbar">
+        <scroll-view scroll-y="true" style="height:{{deviceHeight}}px;" class="left_tabbar_list">
+            <view bindtap="changeTab" data-index="{{index}}" data-name="{{item.tabName}}" class="left_tabbar_item {{activeIndex==index?'active':''}}" wx:for="{{tabs}}" wx:key="idx">{{item.tabName}}</view>
+        </scroll-view>
     </view>
+    <view class="right_content">
+        <scroll-view  scroll-y="true" style="height:{{deviceHeight}}px;" class="tab_panel">       
 
-    <view class='record' wx:for="{{items}}" wx:key="item" bindtap='chooserecord' data-index="{{index}}">
-        <view class='name'>{{item.studentMsg.name}}</view>
-        <view class="healthy round {{item.dailySubmitMsg.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.dailySubmitMsg.healthy}}</view>
-        <text class='time'>{{item.dailySubmitMsg.date}}</text>
+                    <view class='record' wx:if="{{SubmitLogs_search.length>0}}" wx:for="{{SubmitLogs_search}}" wx:key="id" data-item='{{item}}' bindtap='itemClickEvent' data-index="{{index}}">
+                        <view class='name'>{{item.studentMsg.name}}</view>
+                        <view class="healthy round {{item.dailySubmitMsg.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.dailySubmitMsg.healthy}}</view>
+                        <view class="healthy round {{item.dailySubmitMsg.inSchool != '是'?'healthy1':'healthy'}}">在校：{{item.dailySubmitMsg.inSchool}}</view>
+                    </view>
+                
+        </scroll-view>
     </view>
-
-
-
 </view>
