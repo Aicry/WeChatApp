@@ -1,5 +1,5 @@
 // let baseUrl = `https://wxapp.geekreading.cn/api/`;
-let baseUrl = `http://192.168.1.103:8000/`;
+let baseUrl = `http://192.168.1.112:8000/`;
 
 function getHeader() {
     if (wx.getStorageSync('Token')) {

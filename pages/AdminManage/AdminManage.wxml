@@ -1,0 +1,56 @@
+<view class="container">
+    <image class="header_bg" mode="widthFix" src="../../static/images/admin.png"></image>
+    <view class="header" style="{{header_style}}">
+    </view>
+
+    <view class="page__bd">
+        <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{searchText}}" focus="{{inputShowed}}" bindinput="searchTextInput" />
+                    <view class="weui-icon-clear" wx:if="{{searchText.length > 0}}" bindtap="clearInput">
+                        <icon type="clear" size="14"></icon>
+                    </view>
+                </view>
+                <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索</view>
+                </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{searchText.length > 0}}">
+
+            <view wx:for="{{adminList_search}}" wx:key="id" class="weui-cell weui-cell_access weui-search_r" data-item='{{item}}' bindtap="itemClickEvent">
+
+                <view class="weui-cell__bd weui-cell_primary">
+                    <view>{{item.name}}</view>
+                    <view class="grey">学院：{{item.college}}</view>
+                </view>
+                <view class="weui-cell__ft">Id
+                    <view class="weui-menulist__flex">
+                        <text style="font-size: 32rpx;line-height: 50rpx;">{{item.Id}}</text>
+                    </view>
+                </view>
+            </view>
+
+        </view>
+    </view>
+    <view class="weui-cells searchbar-result" wx:if="{{adminList_search.length == 0}}">
+
+        <view wx:for="{{admins}}" wx:key="id" class="weui-cell weui-cell_access weui-search_r" data-item='{{item}}' bindtap="itemClickEvent">
+
+            <view class="weui-cell__bd weui-cell_primary">
+                <view>{{item.name}}</view>
+                <view class="grey">学院：{{item.college}}</view>
+            </view>
+            <view class="weui-cell__ft">
+                <view class="weui-menulist__flex">
+                    <text style="font-size: 32rpx;line-height: 50rpx;">{{item.Id}}</text>
+                 
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

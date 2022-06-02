@@ -1,0 +1,12 @@
+<view class="view_contain">
+
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+
+      <view class="list-item" wx:if="{{students.length>0}}" wx:for="{{students}}" wx:key="id" data-item='{{item}}' bindtap='itemClickEvent' data-index="{{index}}">
+        <text class="item-text">{{'姓名'}}:{{item.name}}</text>
+      </view>
+     
+</view>

@@ -1,0 +1,18 @@
+<view class="view_contain">
+
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+
+<view class='record' wx:for="{{items}}" wx:key="item" bindtap='chooserecord' data-index="{{index}}">
+   <view class='temperature'>学号：{{item.Id}}
+   </view>
+  <view class="healthy round {{item.healthy != '正常'?'healthy1':'healthy'}}">健康状况：{{item.healthy}}
+   </view>
+   <view class="healthy round {{item.inSchool != '正常'?'healthy1':'healthy'}}">在校状况：{{item.inSchool}}
+    </view>
+
+</view>>
+
+</view>

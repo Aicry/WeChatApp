@@ -1,6 +1,5 @@
 {
     "pages": [
-       
         "pages/login/login",
         "pages/StudentManage/StudentManage",
         "pages/Student/Student",
@@ -15,15 +14,15 @@
         "pages/TodaySubmit/TodaySubmit",
         "pages/ChangeTel/ChangeTel",
         "pages/StudentDetails/StudentDetails",
-        "pages/ListNeedSubmit/ListNeedSubmit"
-        
+        "pages/ListNeedSubmit/ListNeedSubmit",
+        "pages/AdminManage/AdminManage",
+        "pages/AbnormalMsg/AbnormalMsg"
     ],
     "window": {
         "navigationBarTextStyle": "black",
         "backgroundColor": "#f5f5f5",
         "navigationStyle": "custom"
     },
-   
     "permission": {
         "scope.userLocation": {
             "desc": "我们将获取你的位置"

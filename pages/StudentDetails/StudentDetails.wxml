@@ -1,0 +1,27 @@
+<view class="view_contain">
+
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+
+     
+      <view class="list-item" >
+        <text class="item-text">{{'学号'}}:{{item.studentMsg.Id}}</text>
+        <text class="item-text">{{'姓名'}}:{{item.studentMsg.name}}</text>
+        <text class="item-text">{{'电话号码'}}:{{item.studentMsg.Telephone}}</text>
+        <text class="item-text">{{'专业'}}:{{item.studentMsg.major}}</text>
+        <text class="item-text">{{'班级'}}:{{item.studentMsg.stuClass}}</text>
+        <text class="item-text">{{'打卡天数'}}:{{item.studentMsg.submitdays}}</text>
+        <text class="item-text">{{'最近打卡日期'}}:{{item.studentMsg.submitDate}}</text>
+        <text class="item-text">{{'日期'}}:{{item.dailySubmitMsg.date}}</text>
+        <text class="item-text">{{'定位'}}:{{item.dailySubmitMsg.address}}</text>
+        <text class="item-text">{{'是否在校'}}:{{item.dailySubmitMsg.inSchool}}</text>
+        <text class="item-text">{{'是否离开学校所在城市'}}:{{item.dailySubmitMsg.inCity}}</text>
+        <text class="item-text">{{'今日体温'}}:{{item.dailySubmitMsg.temperature}}</text>
+        <text class="item-text">{{'健康状况'}}:{{item.dailySubmitMsg.healthy}}</text>
+        <text class="item-text">{{'是否在当地确认为四类人员'}}:{{item.dailySubmitMsg.personType}}</text>
+        <text class="item-text">{{'主要亲属是否有人确诊'}}:{{item.dailySubmitMsg.relative}}</text>
+        <text class="item-text">{{'备注'}}:{{item.dailySubmitMsg.note}}</text>
+      </view>
+</view>

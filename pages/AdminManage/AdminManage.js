@@ -7,10 +7,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-     college:'',
-     students:[],
-     studentList:[],
-     studentList_search:[],
+     admins:[],
+     adminList:[],
+     adminList_search:[],
      items: [],
      index: "",
      inputShowed: false,
@@ -19,16 +18,8 @@ Page({
     },
 
     onLoad: function () {
-        const eventChannel = this.getOpenerEventChannel();
-        eventChannel.on('acceptDataFromOpenerPage', (data) => {
-          console.log(data);
-          this.setData({
-            college:data.data
-          })
-          if(this.data.college=="")this.change1();
-          else this.change();
-        })
-     
+           
+         this.change();
     },
     /**
      * 生命周期函数--监听页面显示
@@ -42,28 +33,17 @@ Page({
     },
     change:function(e){
    
-    const promise= http.post("GetStudents",this.data.college);     
+    const promise= http.post("AdminManage",this.data.college);     
     promise.then(res => {
     console.log(res.data);
     this.setData({
         items:res.data,
-        students:res.data.students,
-        studentList:res.data.students
+        admins:res.data.admins,
+        adminList:res.data.admins
     })
     })
    },
-   change1:function(e){
-   
-    const promise= http.post("StudentsManage",this.data.college);     
-    promise.then(res => {
-    console.log(res.data);
-    this.setData({
-        items:res.data,
-        students:res.data.students,
-        studentList:res.data.students
-    })
-    })
-   },
+  
    itemClickEvent: function (e) {
    console.log('itemClickEvent e', e); 
 
@@ -74,14 +54,13 @@ Page({
   },
    itemClick: function (item){
     wx.showActionSheet({
-      itemList: ['更改密码','更改手机','拨打电话','删除学生','今日报送'],
+      itemList: ['更改密码','删除管理员'],
       success(res) {
         const msg = {
           "Id": item.Id,
           "name": item.name,
           "pwd":item.pwd,
-          "Telephone": item.Telephone,
-          "Type": '学生'
+          "Type": '管理员'
         }
         var array = JSON.stringify(msg);
         if (res.tapIndex == 0) {
@@ -92,20 +71,7 @@ Page({
                 { data: array })
             }
           })
-        } else if (res.tapIndex == 1) {
-          wx.navigateTo({
-            url: '/pages/ChangeTel/ChangeTel',
-            success: (res) => {
-              res.eventChannel.emit('acceptDataFromOpenerPage',
-                { data: array })
-            }
-          })
-
-        } else if (res.tapIndex == 2 ) {
-          wx.makePhoneCall({
-            phoneNumber: item.Telephone,
-          })
-        }
+        } 
       },
       fail(res) {
         console.log(res.errMsg);
@@ -117,35 +83,33 @@ Page({
    //开始搜索
   searchSubmit: function (e) {
     console.log('searchSubmit e', e);
-    var studentList_search = [];
-    var studentList = this.data.studentList;
+    var adminList_search = [];
+    var adminList = this.data.adminList;
     var searchText = this.data.searchText;
 
     if (this.data.searchText.length > 0){
       //本地搜索，比较姓名、拼音....
-      for (var i in studentList){
-        if (studentList[i].name.indexOf(searchText) != -1 
-          || searchText.indexOf(studentList[i].name) != -1
-          || studentList[i].major.indexOf(searchText) != -1
-          || searchText.indexOf(studentList[i].major) != -1
-          || studentList[i].stuClass.indexOf(searchText) != -1
-          || searchText.indexOf(studentList[i].stuClass) != -1
-          || studentList[i].Id.indexOf(searchText) != -1
-          || searchText.indexOf(studentList[i].Id) != -1){
-            studentList_search.push(studentList[i]);
+      for (var i in adminList){
+        if (adminList[i].name.indexOf(searchText) != -1 
+          || searchText.indexOf(adminList[i].name) != -1
+          || adminList[i].college.indexOf(searchText) != -1
+          || searchText.indexOf(adminList[i].college) != -1
+          || adminList[i].Id.indexOf(searchText) != -1
+          || searchText.indexOf(adminList[i].Id) != -1){
+            adminList_search.push(adminList[i]);
         }
       }
-      if (studentList_search.length == 0){
+      if (adminList_search.length == 0){
         app.toastSuccess('无匹配结果');
       }
     }
 
     //搜索结果
     this.setData({
-      studentList_search: studentList_search,
+      adminList_search: adminList_search,
     });
 
-    console.log('this.data.studentList_search',studentList_search)
+    console.log('this.data.adminList_search',adminList_search)
     
     //一些处理
     if (inputTimeout != null){
@@ -155,16 +119,16 @@ Page({
   },
 
 
-  initStudentList: function () {
+  initadminList: function () {
 
-    let studentList = this.data.studentList
+    let adminList = this.data.adminList
 
  
     this.setData({
-      studentList: studentList,
+      adminList: adminList,
       searchFocus: false,
       searchText: '',
-      studentList_search: [],
+      adminList_search: [],
     })
 
   

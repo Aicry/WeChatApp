@@ -1,2 +1,24 @@
-<!--pages/SuperAdmin/SuperAdmin.wxml-->
-<text>pages/SuperAdmin/SuperAdmin.wxml</text>
+<view class="view_contain">
+
+<!-- 第一部分 -->
+<image class="header_bg" mode="widthFix" src="../../static/images/index.png"></image>
+<view class="header" style="{{header_style}}">
+</view>
+
+
+
+<view class="view_1">
+  <view class="view_image_text">
+    <text>{{Type}}:{{name}}</text>
+    <text>ID：{{Id}}</text>
+  </view>
+</view>
+
+<view class="big3">
+  <view wx:for="{{info}}" wx:key="item" bindtap="TypeChange"  data-index="{{index}}" class="view_3 {{item.class}}" >   
+      <view class="list-item" >
+        <text class="item-text">{{item.title}}</text>
+      </view>
+  </view>
+</view>
+</view>
